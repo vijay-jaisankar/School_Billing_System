@@ -26,4 +26,5 @@ void add_student()
         fprintf(fp,"/i=%s/end//r=%s//end/f=%d/end/d=%s\n",name,roll,due,date);
         return;
     }
+    fclose(fp);
 }
