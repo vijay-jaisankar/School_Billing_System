@@ -1,3 +1,4 @@
-/i=Krishna Sharma/end//r=IMT2019000/end/f=9000/end/d=10-10-2019
-name=Krishna Sharma/end/roll=IMT2019000/end/fees_due=9000/end/due_date=10-10-2019
-/i=Krishna Sharma/end//r=IMT2019000/end/f=9000/end/d=10-10-2019
+namef=Krishna namel=Sharma roll=8 fees=90800 date=01-01-2019
+namef=Aniruddh namel=Gupta roll=89 fees=9000 date=01-01-2019
+namef=Ruturaj namel=Mohito roll=5 fees=99999 date=01-01-2019
+namef=Vijay namel=Jaisankar roll=12 fees=0 date=01-01-2019

@@ -1,72 +1,82 @@
 #include <string.h>
-#include<stdio.h>
+#include <stdio.h>
+#include<stdlib.h>
+#define NULLSTRING "NULLNULLNULL"
 #define LARGE 999
 #define SMALL 50
+#define ARBITLARGE 99999999
 
-void search(char key,char value[],char attr,char output[]);
 
-void call_search(char key, char value[],char attr,char output[]){
-	FILE * db= fopen("db.txt","r");
-	char temp_string[LARGE+1];
-	fgets(temp_string,LARGE,db);
-		printf("%s",temp_string);
-	int d =  ftell(db);
-	fseek(db , -d , SEEK_CUR);
-	char tocheck[SMALL] = "";
 
-	for(int i=0; i < strlen(temp_string);i++){
-					printf("%c",temp_string[1]);
-		if(temp_string[i]=='/'){
-			i++;
-			if(temp_string[i]==key){
-				i+=2;
-				int i_temp=i;
-				while(temp_string[i]!='/'){
-					tocheck[i-i_temp]=temp_string[i];
-					i++;
-				}
-
-			}
-
-		}
-	}
-
-	fclose(db);
-
-	if(strcmp(tocheck,value)==0){
-		search(key,value,attr,output);
-	}
+void search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],int int_value,FILE* db){
+    
+    fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s",namef,namel,roll,fees,date);
 
 }
 
-//will be called by another function that will ensure that it only returns one attribute
-void search (char key,char value[],char attr,char output[]){
-	FILE * db= fopen("db.txt","r");
-	char temp_string[LARGE+1];
-	fgets(temp_string,LARGE,db);
-	int d =  ftell(db);
-	fseek(db , -d , SEEK_CUR);
+void call_search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],int int_value,FILE* db){
+    char val_temp[SMALL];
+    int val_temp_int;
+    while(!feof(db)){
+       // printf("%d",feof(db));
+        char BUFFER[LARGE];
+        search(key,value,namef,namel,roll,fees,date,int_value,db);
 
-	for(int i=0; i < strlen(temp_string);i++){
-		if(temp_string[i]=='/'){
-			i++;
-			int i_temp=i;
-			if(temp_string[i]==attr){
-				i++;
-				while(temp_string[i]!='/'){
-					output[i-i_temp]=temp_string[i];
-					printf("%c\n",output[i-i_temp]);
-				}
-			}
+        if(strcmp(key,"namef")==0){
+            strcpy(val_temp,namef);
+        }
+        else if(strcmp(key,"namel")==0){
+            strcpy(val_temp,namel);
+        }
+        else if(strcmp(key,"roll")==0){
+            val_temp_int=*roll;
+        }
+        else if(strcmp(key,"date")==0){
+            strcpy(val_temp,date);
+        }
+        else if(strcmp(key,"fees")==0){
+            val_temp_int=*fees;
+        }
 
-		}
-	}
+        if(strcmp(val_temp,value)==0 || val_temp_int==int_value){
+            printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
+        }
+        fgets(BUFFER,LARGE,db);
+
+    }
 
 }
 
-int main(){
-	char op[SMALL] = "bio";
-	call_search('i',"Krishna Sharma",'f',op);
-	printf("%s\n",op);
+void search_driver(FILE* db){
+    char namef[SMALL]="";
+    char namel[SMALL]="";
+    int * roll=malloc(sizeof(int));
+    int *fees=malloc(sizeof(int));
+    char date[SMALL]="";
 
+    char key[SMALL];
+    char value[SMALL]=NULLSTRING;
+    int int_value=ARBITLARGE;
+
+    printf("Type in the field you want to search by(namef,namel,roll,fees,date)\n");
+    scanf("%s",key);
+
+    if(strcmp(key,"fees")!=0 && strcmp(key,"roll")!=0 ){
+        printf("Enter String Value\n");
+        scanf("%s",value);
+    }  
+    else{
+        printf("Enter Integer Value\n");
+        scanf("%d",&int_value);
+    } 
+    printf("nameF        nameL       Roll   Fees      DueDate\n");
+
+
+    call_search(key,value,namef,namel,roll,fees,date,int_value,db);
+}
+
+int main(void){
+    FILE* db=fopen("db.txt","r");
+    search_driver(db);
+    return 0;
 }
