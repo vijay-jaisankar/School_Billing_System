@@ -75,8 +75,8 @@ void search_driver(FILE* db){
     call_search(key,value,namef,namel,roll,fees,date,int_value,db);
 }
 
-//int main(void){
-  //  FILE* db=fopen("db.txt","r");
-    //search_driver(db);
-   // return 0;
-//}
+// int main(void){
+//    FILE* db=fopen("db.txt","r");
+//     search_driver(db);
+//    return 0;
+// }
