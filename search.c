@@ -8,7 +8,7 @@
 
 
 
-void search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],int int_value,FILE* db){
+void search(char namef[],char namel[],int * roll,int * fees, char date[],FILE* db){
     
     fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s",namef,namel,roll,fees,date);
 
@@ -20,7 +20,7 @@ void call_search(char key[], char value[],char namef[],char namel[],int * roll,i
     while(!feof(db)){
        // printf("%d",feof(db));
         char BUFFER[LARGE];
-        search(key,value,namef,namel,roll,fees,date,int_value,db);
+        search(namef,namel,roll,fees,date,db);
 
         if(strcmp(key,"namef")==0){
             strcpy(val_temp,namef);
@@ -75,8 +75,8 @@ void search_driver(FILE* db){
     call_search(key,value,namef,namel,roll,fees,date,int_value,db);
 }
 
-int main(void){
-    FILE* db=fopen("db.txt","r");
-    search_driver(db);
-    return 0;
-}
+//int main(void){
+  //  FILE* db=fopen("db.txt","r");
+    //search_driver(db);
+   // return 0;
+//}
