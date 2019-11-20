@@ -1,9 +1,11 @@
 #include<stdio.h>
 void add_student()//this function will add the details of one student in the database.
 {
-    char name[80];
-    printf("Enter student's name...\n");//entering student's name
-    scanf("%s",name);
+    char fname[80],lname[80];
+    printf("Enter student's first name...\n");//entering student's first name
+    scanf("%s",fname);
+    printf("Enter student's last name...\n");//entering student's last name
+    scanf("%s",lname);
     int roll;
     printf("Enter roll number...\n");//entering student's roll number
     scanf("%d",&roll);
@@ -22,9 +24,8 @@ void add_student()//this function will add the details of one student in the dat
     }
     else
     {
-        fprintf(fp,"/i=%s/end//r=%d//end/f=%d/end/d=%s\n",name,roll,due,date);
-        fprintf(fp,"name=%s/end/roll=%d/end/fees_due=%d/end/due_date=%s\n",name,roll,due,date);//writing data into file
-        fprintf(fp,"/i=%s/end//r=%d//end/f=%d/end/d=%s\n",name,roll,due,date);
+        fprintf(fp,"namef=%s namel=%s roll=%d fees=%d date=%s\n",fname,lname,roll,due,date);//writing data into file
+        
         
     }
     fclose(fp);//closing and flushing the buffer
