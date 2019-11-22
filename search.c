@@ -1,3 +1,4 @@
+
 #include <string.h>
 #include <stdio.h>
 #include<stdlib.h>
@@ -9,7 +10,7 @@
 
 
 void search(char namef[],char namel[],int * roll,int * fees, char date[],FILE* db){
-    
+
     fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s",namef,namel,roll,fees,date);
 
 }
@@ -17,10 +18,14 @@ void search(char namef[],char namel[],int * roll,int * fees, char date[],FILE* d
 void call_search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],int int_value,FILE* db){
     char val_temp[SMALL];
     int val_temp_int;
-    while(!feof(db)){
-       // printf("%d",feof(db));
+    while(1){
+       //printf("%d",feof(db));
         char BUFFER[LARGE];
         search(namef,namel,roll,fees,date,db);
+        if(feof(db))
+          break;
+
+        fgets(BUFFER,LARGE,db);
 
         if(strcmp(key,"namef")==0){
             strcpy(val_temp,namef);
@@ -41,8 +46,6 @@ void call_search(char key[], char value[],char namef[],char namel[],int * roll,i
         if(strcmp(val_temp,value)==0 || val_temp_int==int_value){
             printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
         }
-        fgets(BUFFER,LARGE,db);
-
     }
 
 }
@@ -54,7 +57,7 @@ void search_driver(FILE* db){
     int *fees=malloc(sizeof(int));
     char date[SMALL]="";
 
-    char key[SMALL];
+    char key[SMALL]= "";
     char value[SMALL]=NULLSTRING;
     int int_value=ARBITLARGE;
 
@@ -64,19 +67,18 @@ void search_driver(FILE* db){
     if(strcmp(key,"fees")!=0 && strcmp(key,"roll")!=0 ){
         printf("Enter String Value\n");
         scanf("%s",value);
-    }  
+    }
     else{
         printf("Enter Integer Value\n");
         scanf("%d",&int_value);
-    } 
+    }
     printf("nameF        nameL       Roll   Fees      DueDate\n");
-
 
     call_search(key,value,namef,namel,roll,fees,date,int_value,db);
 }
 
-// int main(void){
-//    FILE* db=fopen("db.txt","r");
-//     search_driver(db);
-//    return 0;
-// }
+ //int main(void){
+  //  FILE* db=fopen("db.txt","r");
+    /// search_driver(db);
+    //return 0;
+ //}
