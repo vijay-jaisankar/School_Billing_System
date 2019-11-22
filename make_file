@@ -1,0 +1,15 @@
+all: 1.o util1.o search.o addstudent.o delete.o
+	gcc 1.o util1.o search.o addstudent.o delete.o -o main
+
+1.o: 1.c 
+	gcc -c 1.c
+util1.o: util1.c util1.h
+	gcc -c util1.c
+search.o: search.c search.h
+	gcc -c search.c
+addstudent.o : addstudent.c addstudent.h
+	gcc -c addstudent.c
+delete.o: delete.c delete.h
+	gcc -c delete.c
+clear: *.o
+	rm *.o 
