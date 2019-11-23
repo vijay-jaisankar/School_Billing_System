@@ -64,8 +64,7 @@ void search_driver(FILE* db){
     printf("Enter the category(students/staff) : ");
     char category[100];
     scanf("%s" , category);
-
-    printf("Type in the field you want to search by(namef,namel,roll,fees,date)\n");
+    printf("Type in the field you want to search by(namef,namel,roll/salary,date)\n");
     scanf("%s",key);
     if(strcmp(key,"fees")!=0 && strcmp(key,"roll")!=0 ){
         printf("Enter String Value\n");
@@ -76,12 +75,14 @@ void search_driver(FILE* db){
         scanf("%d",&int_value);
     }
   //  printf("\nnameF        nameL       Roll   Fees      DueDate\n");
-  if(strcmp(category , "student")==0)
+  if(strcmp(category , "student")==0){
     display_stud();
-  else if(strcmp(category , "staff")==0)
-    display_staff();
-
     call_search(key,value,namef,namel,roll,fees,date,category,int_value,db);
+   }
+  else if(strcmp(category , "staff")==0){
+    display_staff();
+    call_search(key,value,namef,namel,roll,fees,date,category,int_value,db);
+  }
 }
 
  //int main(void){

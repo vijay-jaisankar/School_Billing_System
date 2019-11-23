@@ -1,4 +1,11 @@
-namef=Krishna namel=Sharma roll=8 fees=90800 date=01-01-2019
-namef=Aniruddh namel=Gupta roll=89 fees=9000 date=01-01-2019
-namef=Ruturaj namel=Mohito roll=5 fees=99999 date=01-01-2019
-namef=Vijay namel=Jaisankar roll=12 fees=0 date=01-01-2019
+namef=Aniruddh namel=Gupta roll=89 fees=9000 date=01-01-2019 category=student
+namef=Ruturaj namel=Mohito roll=5 fees=99999 date=01-01-2019 category=staff
+namef=Vijay namel=Jaisankar roll=12 fees=0 date=01-01-2019 category=student
+namef=James namel=Yancy roll=69 fees=0 date=02-04-2020 category=student
+namef=Ethan namel=Hunt roll=30 fees=29933 date=30-04-2020 category=staff
+namef=Thom namel=Yorke roll=25 fees=29932 date=04-05-2020 category=staff
+namef=Adam namel=Sandler roll=45 fees=99999 date=02-03-2020 category=student
+namef=bjork namel=bjork roll=43 fees=30234 date=04-05-2020 category=student
+namef=Alan namel=Turing roll=44 fees=2345 date=04-06-2020 category=staff
+namef=El namel=Humph roll=47 fees=24040 date=04-05-2020 category=staff
+namef=Yehudi namel=Menuhin roll=100 fees=2321 date=20-10-2020 category=student

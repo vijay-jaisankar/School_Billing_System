@@ -1,5 +1,5 @@
-all: 1.o util1.o search.o addstudent.o delete.o
-	gcc 1.o util1.o search.o addstudent.o delete.o -o main
+all: 1.o util1.o search.o addstudent.o delete.o search_domain.o string_funcs.o
+	gcc 1.o util1.o search.o addstudent.o delete.o search_domain.o string_funcs.o -o main
 
 1.o: 1.c 
 	gcc -c 1.c
@@ -11,5 +11,9 @@ addstudent.o : addstudent.c addstudent.h
 	gcc -c addstudent.c
 delete.o: delete.c delete.h
 	gcc -c delete.c
+search_domain.o: search_domain.c search_domain.h
+	gcc -c search_domain.c
+string_funcs.o: string_funcs.c string_funcs.h
+	gcc -c string_funcs.c
 clear: *.o
 	rm *.o 

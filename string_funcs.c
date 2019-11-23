@@ -19,20 +19,21 @@ int check_date(char *str){
   if(str[2]!='-' || str[5]!='-')
     return 0;
 
-  int day , month, year;
-  char sub_str_1[10] , sub_str_2[10] , sub_str_3[10];
+  int day = 0 , month = 0, year = 0;
+  char sub_str_1[4] = "" , sub_str_2[4] = "" , sub_str_3[8] = "";
 
   for(int i = 0; i<2; i++){
-    sub_str_2[i] = str[i];
+    sub_str_1[i] = str[i];
   }
 
   for(int i = 3; i<5; i++){
-    sub_str_2[i] = str[i];
+    sub_str_2[i-3] = str[i];
   }
 
   for(int i = 6; i<10; i++){
-    sub_str_3[i] = str[i];
+    sub_str_3[i-6] = str[i];
   }
+
   day = to_int(sub_str_1);
   month = to_int(sub_str_2);
   year = to_int(sub_str_3);

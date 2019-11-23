@@ -1,4 +1,4 @@
-int check_uniq(FILE * , int *);
+int check_uniq(FILE * , int );
 
 void display();
 

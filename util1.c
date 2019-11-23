@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "search.h"
 #include <stdlib.h>
-int check_uniq(FILE *fp , int *roll_no){ //Accepting file pointer and roll no as parameters
+int check_uniq(FILE *fp , int roll_no){ //Accepting file pointer and roll no as parameters
   char namef[1000] , namel[1000] , date[20], category[30] ,BUFFER[1000];
   int *roll , *fees;
   roll = (int *)malloc(sizeof(int));
@@ -11,7 +11,7 @@ int check_uniq(FILE *fp , int *roll_no){ //Accepting file pointer and roll no as
     if(feof(fp)) //When cursor reaches end of File
       break;
 
-    if(*roll==*roll_no) //If roll number is not unique
+    if(*roll==roll_no) //If roll number is not unique
       return 0;
 
     fgets(BUFFER , 1000 , fp); //To get to next Line
