@@ -6,22 +6,23 @@
 #define LARGE 999
 #define SMALL 50
 #define ARBITLARGE 99999999
+#include "util1.h"
 
 
+void search(char namef[],char namel[],int * roll,int * fees, char date[],char category[] ,FILE* db){
 
-void search(char namef[],char namel[],int * roll,int * fees, char date[],FILE* db){
-
-    fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s",namef,namel,roll,fees,date);
+    fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s",namef,namel,roll,fees,date , category);
 
 }
 
-void call_search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],int int_value,FILE* db){
+void call_search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],char category[] , int int_value,FILE* db){
     char val_temp[SMALL];
     int val_temp_int;
+    char cat[SMALL];
     while(1){
        //printf("%d",feof(db));
         char BUFFER[LARGE];
-        search(namef,namel,roll,fees,date,db);
+        search(namef,namel,roll,fees,date,cat,db);
         if(feof(db))
           break;
 
@@ -43,7 +44,7 @@ void call_search(char key[], char value[],char namef[],char namel[],int * roll,i
             val_temp_int=*fees;
         }
 
-        if(strcmp(val_temp,value)==0 || val_temp_int==int_value){
+        if(strcmp(val_temp,value)==0 || val_temp_int==int_value && strcmp(category ,cat )==0){
             printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
         }
     }
@@ -60,10 +61,12 @@ void search_driver(FILE* db){
     char key[SMALL]= "";
     char value[SMALL]=NULLSTRING;
     int int_value=ARBITLARGE;
+    printf("Enter the category(students/staff) : ");
+    char category[100];
+    scanf("%s" , category);
 
     printf("Type in the field you want to search by(namef,namel,roll,fees,date)\n");
     scanf("%s",key);
-
     if(strcmp(key,"fees")!=0 && strcmp(key,"roll")!=0 ){
         printf("Enter String Value\n");
         scanf("%s",value);
@@ -72,9 +75,13 @@ void search_driver(FILE* db){
         printf("Enter Integer Value\n");
         scanf("%d",&int_value);
     }
-    printf("nameF        nameL       Roll   Fees      DueDate\n");
+  //  printf("\nnameF        nameL       Roll   Fees      DueDate\n");
+  if(strcmp(category , "student")==0)
+    display_stud();
+  else if(strcmp(category , "staff")==0)
+    display_staff();
 
-    call_search(key,value,namef,namel,roll,fees,date,int_value,db);
+    call_search(key,value,namef,namel,roll,fees,date,category,int_value,db);
 }
 
  //int main(void){
