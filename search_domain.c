@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include<stdlib.h>
+#include "util1.h"
 #define NULLSTRING "NULLNULLNULL"
 #define LARGE 999
 #define SMALL 50
@@ -10,19 +11,20 @@
 
 
 
-void domain_search(char namef[],char namel[],int * roll,int * fees, char date[],FILE* db){
+void domain_search(char namef[],char namel[],int * roll,int * fees, char date[],char category[] ,FILE* db){
 
-    fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s",namef,namel,roll,fees,date);
+    fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s",namef,namel,roll,fees,date, category);
 
 }
 
-void domain_call_search(char key[], char value_lb,char value_ub,char namef[],char namel[],int * roll,int * fees, char date[],int int_value_lb,int int_value_ub,int using,FILE* db){
+void domain_call_search(char key[], char value_lb,char value_ub,char namef[],char namel[],int * roll,int * fees, char date[],char category[] , int int_value_lb,int int_value_ub,int using,FILE* db){
     char val_temp[SMALL]="";
     int val_temp_int=LARGE;
+    char cat_temp[SMALL];
     while(1){
        // printf("%d",feof(db));
         char BUFFER[LARGE];
-        domain_search(namef,namel,roll,fees,date,db);
+        domain_search(namef,namel,roll,fees,date,cat_temp, db);
 
         if(feof(db))
           break;
@@ -40,12 +42,12 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
         }
 
         if(using){
-            if(val_temp_int<=int_value_ub && val_temp_int>= int_value_lb){
+            if(val_temp_int<=int_value_ub && val_temp_int>= int_value_lb && strcmp(cat_temp , category)==0){
                 printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
             }
         }
         else{
-            if(val_temp[0]<=value_ub && val_temp[0]>=value_lb){
+            if(val_temp[0]<=value_ub && val_temp[0]>=value_lb && strcmp(cat_temp , category)==0){
                 printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
             }
         }
@@ -61,6 +63,7 @@ void search_domain_driver(FILE* db){
     int * roll=malloc(sizeof(int));
     int *fees=malloc(sizeof(int));
     char date[SMALL]="";
+    char category[SMALL]="";
 
     char key[SMALL];
     char value_lb='\0';
@@ -68,7 +71,8 @@ void search_domain_driver(FILE* db){
     int int_value_lb=ARBITLARGE;
     int int_value_ub=ARBITLARGE;
     int using;
-
+    printf("Enter the category(student or staff): ");
+    scanf("%s" , category);
     printf("Type in the field you want to search by(namef,namel,roll,fees)\n");
     scanf("%s",key);
 
@@ -85,10 +89,14 @@ void search_domain_driver(FILE* db){
         scanf("%d%d",&int_value_lb,&int_value_ub);
         using=USINGINT;
     }
-    printf("nameF        nameL       Roll   Fees      DueDate\n\n");
+    if(strcmp(category , "student")==0)
+      display_stud();
+    else if(strcmp(category , "staff")==0)
+      display_staff();
+    //printf("nameF        nameL       Roll   Fees      DueDate\n\n");
 
 
-    domain_call_search(key,value_lb,value_ub,namef,namel,roll,fees,date,int_value_lb,int_value_ub,using,db);
+    domain_call_search(key,value_lb,value_ub,namef,namel,roll,fees,date,category, int_value_lb,int_value_ub,using,db);
 }
 
 // int main(void){
