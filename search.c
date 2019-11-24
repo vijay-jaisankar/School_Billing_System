@@ -8,13 +8,14 @@
 #define ARBITLARGE 99999999
 #include "util1.h"
 
-
+//This Function searches for the requried line in the database in the order of the formatted string
 void search(char namef[],char namel[],int * roll,int * fees, char date[],char category[] ,FILE* db){
 
     fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s",namef,namel,roll,fees,date , category);
 
 }
 
+//This Function calls the search function to compare the keys with their values and get required information for student or staff
 void call_search(char key[], char value[],char namef[],char namel[],int * roll,int * fees, char date[],char category[] , int int_value,FILE* db){
     char val_temp[SMALL];
     int val_temp_int;
@@ -22,12 +23,17 @@ void call_search(char key[], char value[],char namef[],char namel[],int * roll,i
     while(1){
        //printf("%d",feof(db));
         char BUFFER[LARGE];
+        
+        //Calling the search function for the required student or staff member to be searched
         search(namef,namel,roll,fees,date,cat,db);
+        
+        //Exits the loop if end of file is reached
         if(feof(db))
           break;
 
         fgets(BUFFER,LARGE,db);
 
+        //Copying the value of the corresponding key into a temporary string or temporary integer so as to compare later
         if(strcmp(key,"namef")==0){
             strcpy(val_temp,namef);
         }
@@ -44,6 +50,7 @@ void call_search(char key[], char value[],char namef[],char namel[],int * roll,i
             val_temp_int=*fees;
         }
 
+        //Comparing the value to that of the temporary value and printing required information 
         if(strcmp(val_temp,value)==0 || val_temp_int==int_value && strcmp(category ,cat )==0){
             printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
         }
@@ -51,6 +58,7 @@ void call_search(char key[], char value[],char namef[],char namel[],int * roll,i
 
 }
 
+//Driver Function in which variables are defined and also User Interface is taken care of
 void search_driver(FILE* db){
     char namef[SMALL]="";
     char namel[SMALL]="";
@@ -74,7 +82,8 @@ void search_driver(FILE* db){
         printf("Enter Integer Value\n");
         scanf("%d",&int_value);
     }
-  //  printf("\nnameF        nameL       Roll   Fees      DueDate\n");
+    
+  //Checking the category of person and calling functions accordingly
   if(strcmp(category , "student")==0){
     display_stud();
     call_search(key,value,namef,namel,roll,fees,date,category,int_value,db);
@@ -84,9 +93,3 @@ void search_driver(FILE* db){
     call_search(key,value,namef,namel,roll,fees,date,category,int_value,db);
   }
 }
-
- //int main(void){
-  //  FILE* db=fopen("db.txt","r");
-    /// search_driver(db);
-    //return 0;
- //}
