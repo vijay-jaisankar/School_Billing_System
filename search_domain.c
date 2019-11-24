@@ -97,7 +97,7 @@ void search_domain_driver(FILE* db){
       printf("Invalid category");
       return ;
     }
-    printf("Type in the field you want to search by(namef,namel,roll,fees/salary)\n");
+    printf("Type in the field you want to search by(namef,namel,roll,fees/salary , date)\n");
     scanf("%s",key);
     lower_case(key);
 
