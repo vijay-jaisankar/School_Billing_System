@@ -11,14 +11,14 @@ void add_student(FILE *fp , int roll , char category[])//this function will add 
     scanf("%s",fname);
     printf("Enter %s's last name...\n" , category);//entering student's last name
     scanf("%s",lname);
-    int due, flip = 0;
+    int due, flip = 0;//integrity check variable 'flip' is instantiated
     char check_due[10];
     printf("Enter due amount...\n");//entering due amount
     scanf("%s" , check_due);
     for(int i = 0; i<strlen(check_due); i++)
     {
       if(check_due[i]<'0' || check_due[i]>'9'){
-        flip++;
+        flip++;//as due amount should be a number
         break;
       }
     }
@@ -43,9 +43,9 @@ void add_student(FILE *fp , int roll , char category[])//this function will add 
       else{
         printf("Invalid Date");
       }
-      //closing and flushing the buffer
+      //if date is not of appropriate format
     }
     else{
-      printf("Invalid amount");
+      printf("Invalid amount");//if amount is not of appropriate format
     }
 }
