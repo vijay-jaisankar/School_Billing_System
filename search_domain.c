@@ -10,7 +10,7 @@
 #define USINGCHAR 0
 
 
-
+//function searches the line in the database according to the template
 void domain_search(char namef[],char namel[],int * roll,int * fees, char date[],char category[] ,FILE* db){
 
     fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s",namef,namel,roll,fees,date, category);
@@ -25,9 +25,10 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
        // printf("%d",feof(db));
         char BUFFER[LARGE];
         domain_search(namef,namel,roll,fees,date,cat_temp, db);
-
+        //exits the loop if end of file is reached
         if(feof(db))
           break;
+      	//copies the value of given key into val_temp or val_temp_int to later compare
         if(strcmp(key,"namef")==0){
             strcpy(val_temp,namef);
         }
@@ -41,6 +42,7 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
             val_temp_int=*fees;
         }
 
+        //performs the domain check on the val_temp or val_temp_int and prints according to the template
         if(using){
             if(val_temp_int<=int_value_ub && val_temp_int>= int_value_lb && strcmp(cat_temp , category)==0){
                 printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
@@ -57,6 +59,7 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
 
 }
 
+//driver function, Takes care of UI and memory allocation and definition of variables
 void search_domain_driver(FILE* db){
     char namef[SMALL]="";
     char namel[SMALL]="";
@@ -66,8 +69,10 @@ void search_domain_driver(FILE* db){
     char category[SMALL]="";
 
     char key[SMALL];
+    //lower and upper bounds of value(for char value)
     char value_lb='\0';
     char value_ub='\0';
+    //lower and upper bounds of int_value(for int value)
     int int_value_lb=ARBITLARGE;
     int int_value_ub=ARBITLARGE;
     int using;
@@ -76,6 +81,7 @@ void search_domain_driver(FILE* db){
     printf("Type in the field you want to search by(namef,namel,roll,fees)\n");
     scanf("%s",key);
 
+    //'value' is used if the key requires char inputs
     if(strcmp(key,"fees")!=0 && strcmp(key,"roll")!=0 ){
         printf("Enter Char Values(lower bound and upper bound)\n");
         getchar();
@@ -84,6 +90,7 @@ void search_domain_driver(FILE* db){
         scanf("%c",&value_ub);
         using=USINGCHAR;
     }
+    //else 'int_value' is used
     else{
         printf("Enter Integer Value(lower bound and upper bound)\n");
         scanf("%d%d",&int_value_lb,&int_value_ub);
@@ -93,14 +100,9 @@ void search_domain_driver(FILE* db){
       display_stud();
     else if(strcmp(category , "staff")==0)
       display_staff();
-    //printf("nameF        nameL       Roll   Fees      DueDate\n\n");
 
 
     domain_call_search(key,value_lb,value_ub,namef,namel,roll,fees,date,category, int_value_lb,int_value_ub,using,db);
 }
 
-// int main(void){
-//     FILE* db=fopen("db.txt","r");
-//     search_domain_driver(db);
-//     return 0;
-// }
+
