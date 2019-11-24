@@ -11,14 +11,14 @@ void add_student(FILE *fp , int roll , char category[])//this function will add 
     scanf("%s",fname);
     printf("Enter %s's last name...\n" , category);//entering student's last name
     scanf("%s",lname);
-    int due, flip = 0;//integrity check variable 'flip' is instantiated
+    int due, flip = 0;
     char check_due[10];
     printf("Enter due amount...\n");//entering due amount
     scanf("%s" , check_due);
     for(int i = 0; i<strlen(check_due); i++)
     {
       if(check_due[i]<'0' || check_due[i]>'9'){
-        flip++;//as due amount should be a number
+        flip++;
         break;
       }
     }
@@ -28,24 +28,29 @@ void add_student(FILE *fp , int roll , char category[])//this function will add 
       printf("Enter the due date in DD-MM-YYYY format...\n");//entering the due date
       scanf("%s",date);
       if(check_date(date)){
-        if(fp==NULL)
-        {
-            printf("Error opening File! Please try again...\n");//integrity check
+        if(pending_or_not(date , "24-11-2019")){
+          if(fp==NULL)
+          {
+              printf("Error opening File! Please try again...\n");//integrity check
 
+          }
+          else
+          {
+              fprintf(fp,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s\n",fname,lname,roll,due,date, category);//writing data into file
+              printf("ADDITION DONE SUCCESSFULLY !!! :)");
+
+          }
         }
-        else
-        {
-            fprintf(fp,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s\n",fname,lname,roll,due,date, category);//writing data into file
-
-
+        else{
+          printf("Not Pending !!!");
         }
       }
       else{
         printf("Invalid Date");
       }
-      //if date is not of appropriate format
+      //closing and flushing the buffer
     }
     else{
-      printf("Invalid amount");//if amount is not of appropriate format
+      printf("Invalid amount");
     }
 }
