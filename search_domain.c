@@ -12,7 +12,7 @@
 #define USINGCHAR 0
 
 
-
+//scans the line in the file for data according to the template in fscanf
 void domain_search(char namef[],char namel[],int * roll,int * fees, char date[],char category[] ,FILE* db){
 
     fscanf(db,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s",namef,namel,roll,fees,date, category);
@@ -24,12 +24,12 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
     int val_temp_int=LARGE;
     char cat_temp[SMALL];
     while(1){
-       // printf("%d",feof(db));
         char BUFFER[LARGE];
         domain_search(namef,namel,roll,fees,date,cat_temp, db);
-
+        //exit if eof
         if(feof(db))
           break;
+      	//copies the value in the variable(named as the key) obtained from the 'domain_search' function into 'val_temp' or 'val_temp_int'
         if(strcmp(key,"namef")==0){
             strcpy(val_temp,namef);
         }
@@ -46,6 +46,8 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
         else if(strcmp(key , "date")==0){
             strcpy(val_temp , date);
         }
+
+        //checks for and prints the records in domain
         if(using){
             if(val_temp_int<=int_value_ub && val_temp_int>= int_value_lb && strcmp(cat_temp , category)==0){
                 printf("%-15s      %-15s      %-6d      %-6d      %-10s\n",namef,namel,*roll,*fees,date );
@@ -61,12 +63,14 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
               }
             }
         }
+        //fgets to move to the next line
         fgets(BUFFER,LARGE,db);
 
     }
 
 }
 
+//this function contains definition and memory allocation of variables along with UI for the procedure
 void search_domain_driver(FILE* db){
     char namef[SMALL]="";
     char namel[SMALL]="";
@@ -76,10 +80,13 @@ void search_domain_driver(FILE* db){
     char category[SMALL]="";
 
     char key[SMALL];
+    //char upper and lower bounds
     char value_lb='\0';
     char value_ub='\0';
+    //int upper and lower bounds
     int int_value_lb=ARBITLARGE;
     int int_value_ub=ARBITLARGE;
+    //char[](for date) upper and lower bounds
     char dat_lb[SMALL] = "";
     char dat_ub[SMALL] = "";
     int using;
@@ -90,10 +97,11 @@ void search_domain_driver(FILE* db){
       printf("Invalid category");
       return ;
     }
-    printf("Type in the field you want to search by(namef,namel,roll,fees/salary, date)\n");
+    printf("Type in the field you want to search by(namef,namel,roll,fees/salary)\n");
     scanf("%s",key);
     lower_case(key);
 
+    //scans char as bounds
     if(strcmp(key,"namef")==0 || strcmp(key,"namel")==0){
         printf("Enter Char Values(lower bound and upper bound)\n");
         getchar();
@@ -104,11 +112,13 @@ void search_domain_driver(FILE* db){
         value_ub = toupper(value_ub);
         using=USINGCHAR;
     }
+    //scans ints as bounds
     else if(strcmp(key , "roll")==0 || strcmp(key , "fees/salary")==0){
         printf("Enter Integer Value(lower bound and upper bound)\n");
         scanf("%d%d",&int_value_lb,&int_value_ub);
         using=USINGINT;
     }
+    //scans char[] as bounds
     else if(strcmp(key , "date")==0){
       printf("Enter the lower bound in DD-MM-YYYY format : ");
       scanf("%s" , dat_lb);
@@ -123,6 +133,7 @@ void search_domain_driver(FILE* db){
         return ;
       }
 
+      //checks if the lower bound date is before the upper bound date
       if(pending_or_not(dat_lb , dat_ub)){
         printf("Invalid upper and lower bound values");
       }
@@ -136,12 +147,5 @@ void search_domain_driver(FILE* db){
       display_staff();
     //printf("nameF        nameL       Roll   Fees      DueDate\n\n");
 
-
     domain_call_search(key,value_lb,value_ub,namef,namel,roll,fees,date,category, int_value_lb,int_value_ub,dat_lb , dat_ub , using,db);
 }
-
-// int main(void){
-//     FILE* db=fopen("db.txt","r");
-//     search_domain_driver(db);
-//     return 0;
-// }
