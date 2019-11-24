@@ -17,15 +17,15 @@ int check_uniq(FILE *fp , int roll_no){ //Accepting file pointer and roll no as 
     fgets(BUFFER , 1000 , fp); //To get to next Line
   }return 1;
 }
-
+//display fucnctions 
 void display_stud()
 {
-	printf("\nnameF        nameL       Roll   Fees      DueDate\n");
+	printf("\nnameF                nameL               Roll          Fees         DueDate\n");
 }
 
 void display_staff()
 {
-	printf("\nnameF        nameL       Staff ID   Salary      DueDate\n");
+	printf("\nnameF                nameL               Staff ID         Salary        DueDate\n");
 }
 
 void display()
