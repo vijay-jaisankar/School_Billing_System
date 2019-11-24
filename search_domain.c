@@ -48,16 +48,16 @@ void domain_call_search(char key[], char value_lb,char value_ub,char namef[],cha
         }
         if(using){
             if(val_temp_int<=int_value_ub && val_temp_int>= int_value_lb && strcmp(cat_temp , category)==0){
-                printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
+                printf("%-15s      %-15s      %-6d      %-6d      %-10s\n",namef,namel,*roll,*fees,date );
             }
         }
         else{
             if(val_temp[0]<=value_ub && val_temp[0]>=value_lb && strcmp(cat_temp , category)==0 && strcmp(key , "date")!=0){
-                printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
+                printf("%-15s      %-15s      %-6d      %-6d      %-10s\n",namef,namel,*roll,*fees,date );
             }
             if(strcmp(key , "date")==0){
               if(pending_or_not(date , date_lb) && pending_or_not(date_ub ,date) && strcmp(cat_temp , category)==0){
-                printf("%s      %s      %d      %d      %s\n",namef,namel,*roll,*fees,date );
+                printf("%-15s      %-15s      %-6d      %-6d      %-10s\n",namef,namel,*roll,*fees,date );
               }
             }
         }
