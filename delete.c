@@ -41,6 +41,7 @@ void delete_by_name(char namef[large],char namel[large] , char *str)
 			fprintf(db1,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s\n",s[j].namef,s[j].namel,s[j].roll,s[j].fees,s[j].date,s[j].category);
 		}
 	}
+	printf("DELETION DONE SUCCESSFULLY !!! :)");
 }
 
 
@@ -69,6 +70,7 @@ void delete_by_roll(int roll , char *str)
 			fprintf(db1,"namef=%s namel=%s roll=%d fees=%d date=%s category=%s\n",s[j].namef,s[j].namel,s[j].roll,s[j].fees,s[j].date,s[j].category);
 		}
 	}
+	printf("DELETION DONE SUCCESSFULLY !!! :)");
 }
 
 //int main()
